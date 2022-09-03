@@ -1,3 +1,8 @@
+// global variables
+const newsPostSection = document.getElementById('news-preview');
+const newsCountSection = document.getElementById('news-count');
+const sortSection = document.getElementById('sort-section');
+
 // fetching news categories
 const loadCategories = async () => {
     try {
@@ -20,16 +25,24 @@ const displayCategories = categories => {
         newsCategorySection.appendChild(categoryBtn);
         // adding event listener
         categoryBtn.addEventListener('click', async () => {
+            //hiding sections
+            newsCountSection.innerHTML = '';
+            sortSection.style.display = 'none';
+            newsPostSection.innerHTML = '';
+            // loading spinner
+            spinner(true);
             try {
                 const res = await fetch(`https://openapi.programming-hero.com/api/news/category/${category.category_id}`);
                 const data = await res.json();
                 newsCount(category.category_name, data.data);
-                document.getElementById('sort-section').style.display = 'flex';
+                sortSection.style.display = 'flex';
                 displayNews(data.data);
             }
             catch (e) {
                 console.log(`There is an error in fetching api and the error is ` + e)
             }
+            // spinner hidden
+            spinner(false);
         }
         )
     });
@@ -38,8 +51,6 @@ const displayCategories = categories => {
 // display news divs
 const displayNews = (allNews) => {
     allNews.sort(function (a, b) { return b.total_view - a.total_view });
-    const newsPostSection = document.getElementById('news-preview');
-    newsPostSection.innerHTML = '';
     allNews.forEach(news => {
         const newsDiv = document.createElement('div');
         newsDiv.innerHTML = `
@@ -66,13 +77,10 @@ const displayNews = (allNews) => {
         `
         newsPostSection.appendChild(newsDiv);
     })
-
 }
 
 // display news count section
 const newsCount = (categoryName, data) => {
-    const newsCountSection = document.getElementById('news-count');
-    newsCountSection.innerHTML = ``;
     newsCountSection.innerHTML = `
         <div class="w-3/4 mx-auto bg-gray-400 px-3 py-1 rounded text-lg font-semibold">
         <p>${data.length} items found for category ${categoryName}</p>
@@ -111,6 +119,17 @@ const loadModal = news => {
     `;
     const views = document.getElementById('views');
     views.innerHTML = `<i class="fa-regular fa-eye"></i> ${news.total_view ? news.total_view : 'No Views'}`;
+}
+
+// spinner section 
+const spinner = (isLoading) => {
+    const spinnerSection = document.getElementById('spinner');
+    if (isLoading) {
+        spinnerSection.classList.remove('hidden');
+    }
+    else {
+        spinnerSection.classList.add('hidden');
+    }
 }
 
 
