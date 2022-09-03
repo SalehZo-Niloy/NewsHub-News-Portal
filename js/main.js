@@ -1,8 +1,13 @@
 // fetching news categories
 const loadCategories = async () => {
-    const res = await fetch('https://openapi.programming-hero.com/api/news/categories');
-    const data = await res.json();
-    displayCategories(data.data.news_category);
+    try {
+        const res = await fetch('https://openapi.programming-hero.com/api/news/categories');
+        const data = await res.json();
+        displayCategories(data.data.news_category);
+    }
+    catch (e) {
+        console.log(`There is an error in fetching api and the error is ` + e)
+    }
 }
 
 // display fetched categories as button in page
@@ -15,11 +20,16 @@ const displayCategories = categories => {
         newsCategorySection.appendChild(categoryBtn);
         // adding event listener
         categoryBtn.addEventListener('click', async () => {
-            const res = await fetch(`https://openapi.programming-hero.com/api/news/category/${category.category_id}`);
-            const data = await res.json();
-            console.log(data.data);
-            displayNews(data.data);
-            newsCount(category.category_name, data.data);
+            try {
+                const res = await fetch(`https://openapi.programming-hero.com/api/news/category/${category.category_id}`);
+                const data = await res.json();
+                newsCount(category.category_name, data.data);
+                document.getElementById('sort-section').style.display = 'flex';
+                displayNews(data.data);
+            }
+            catch (e) {
+                console.log(`There is an error in fetching api and the error is ` + e)
+            }
         }
         )
     });
@@ -27,6 +37,7 @@ const displayCategories = categories => {
 
 // display news divs
 const displayNews = (allNews) => {
+    allNews.sort(function (a, b) { return b.total_view - a.total_view });
     const newsPostSection = document.getElementById('news-preview');
     newsPostSection.innerHTML = '';
     allNews.forEach(news => {
@@ -69,12 +80,20 @@ const newsCount = (categoryName, data) => {
     `
 }
 
-// news details modal section
+// news details modal section fetching
 const loadDetails = async (id) => {
-    const modalSection = document.getElementById('detailsModal');
-    const res = await fetch(`https://openapi.programming-hero.com/api/news/${id}`);
-    const data = await res.json();
-    const news = data.data[0];
+    try {
+        const res = await fetch(`https://openapi.programming-hero.com/api/news/${id}`);
+        const data = await res.json();
+        loadModal(data.data[0]);
+    }
+    catch (e) {
+        console.log(`There is an error in fetching api and the error is ` + e);
+    }
+}
+
+// dynamic modal function
+const loadModal = news => {
     const modalTitle = document.getElementById('detailsModalLabel');
     modalTitle.innerText = `${news.title}`;
     const modalImage = document.getElementById('modalImage');
@@ -92,7 +111,6 @@ const loadDetails = async (id) => {
     `;
     const views = document.getElementById('views');
     views.innerHTML = `<i class="fa-regular fa-eye"></i> ${news.total_view ? news.total_view : 'No Views'}`;
-
 }
 
 
