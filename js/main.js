@@ -46,13 +46,14 @@ const displayNews = (allNews) => {
                         <h3 class="text-sm font-medium mx-1">${news.author.name ? news.author.name : "Author Not Found"}</h3>
                     </div>
                     <div><i class="fa-regular fa-eye"></i> ${news.total_view ? news.total_view : 'No Views'}</div>
-                    <div><button class="bg-blue-700 text-white rounded px-3 py-1">Details</button></div>
+                    <div><button type="button" class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" data-bs-toggle="modal" data-bs-target="#detailsModal" onclick="loadDetails('${news._id}')">
+                    Details
+                  </button></div>
                 </div>
             </div>
         </div>
         `
         newsPostSection.appendChild(newsDiv);
-
     })
 
 }
@@ -67,5 +68,32 @@ const newsCount = (categoryName, data) => {
         </div>
     `
 }
+
+// news details modal section
+const loadDetails = async (id) => {
+    const modalSection = document.getElementById('detailsModal');
+    const res = await fetch(`https://openapi.programming-hero.com/api/news/${id}`);
+    const data = await res.json();
+    const news = data.data[0];
+    const modalTitle = document.getElementById('detailsModalLabel');
+    modalTitle.innerText = `${news.title}`;
+    const modalImage = document.getElementById('modalImage');
+    modalImage.innerHTML = `
+    <img class="w-10/12 mx-auto rounded"
+        src="${news.image_url}"
+        alt="">
+    `;
+    const modalDetails = document.getElementById('modalDetails');
+    modalDetails.innerText = `${news.details}`;
+    const author = document.getElementById('author');
+    author.innerHTML = `
+    <img class="h-9 rounded-full" src="${news.author.img}">
+    <h3 class="text-sm font-medium mx-1">${news.author.name}</h3>
+    `;
+    const views = document.getElementById('views');
+    views.innerHTML = `<i class="fa-regular fa-eye"></i> ${news.total_view}`;
+
+}
+
 
 loadCategories();
