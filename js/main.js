@@ -19,6 +19,7 @@ const displayCategories = categories => {
             const data = await res.json();
             console.log(data.data);
             displayNews(data.data);
+            newsCount(category.category_name, data.data);
         }
         )
     });
@@ -28,7 +29,6 @@ const displayCategories = categories => {
 const displayNews = (allNews) => {
     const newsPostSection = document.getElementById('news-preview');
     newsPostSection.innerHTML = '';
-    const newsCountSection = document.getElementById
     allNews.forEach(news => {
         const newsDiv = document.createElement('div');
         newsDiv.innerHTML = `
@@ -52,9 +52,20 @@ const displayNews = (allNews) => {
         </div>
         `
         newsPostSection.appendChild(newsDiv);
+
     })
 
+}
 
+// display news count section
+const newsCount = (categoryName, data) => {
+    const newsCountSection = document.getElementById('news-count');
+    newsCountSection.innerHTML = ``;
+    newsCountSection.innerHTML = `
+        <div class="w-3/4 mx-auto bg-gray-400 px-3 py-1 rounded text-lg font-semibold">
+        <p>${data.length} items found for category ${categoryName}</p>
+        </div>
+    `
 }
 
 loadCategories();
