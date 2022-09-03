@@ -17,13 +17,15 @@ const loadCategories = async () => {
 
 // display fetched categories as button in page
 const displayCategories = categories => {
+    // default news show
+    loadDefaultNews('08', 'All News');
+    // adding event listener
     const newsCategorySection = document.getElementById('news-category');
     categories.forEach(category => {
         const categoryBtn = document.createElement('button');
         categoryBtn.classList.add('py-1', 'px-2', 'bg-neutral-300', 'rounded', 'text-md', 'md:text-xl', 'font-semibold');
         categoryBtn.innerText = `${category.category_name}`;
         newsCategorySection.appendChild(categoryBtn);
-        // adding event listener
         categoryBtn.addEventListener('click', async () => {
             //hiding sections
             newsCountSection.innerHTML = '';
@@ -62,8 +64,8 @@ const displayNews = (allNews) => {
             <div class="w-full flex flex-col justify-between p-4 leading-normal">
                 <h5 class="mb-2 text-lg md:text-2xl font-bold tracking-tight text-gray-900">${news.title}</h5>
                 <p class="mb-3 text-sm md:text-base font-normal text-gray-700">${news.details.slice(0, 200)}...</p>
-                <div class="flex flex-row justify-around items-center flex-wrap">
-                    <div class="flex items-center">
+                <div class="flex flex-row justify-around items-center flex-wrap gap-x-8 md:gap-x-0">
+                    <div class="flex flex-col md:flex-row items-center">
                         <img class="h-9 rounded-full" src="${news.author.img ? news.author.img : '#'}">
                         <h3 class="text-sm font-medium mx-1">${news.author.name ? news.author.name : "Author Not Found"}</h3>
                     </div>
@@ -130,6 +132,22 @@ const spinner = (isLoading) => {
     else {
         spinnerSection.classList.add('hidden');
     }
+}
+
+// default load news function
+const loadDefaultNews = async (id, category_name) => {
+    spinner(true);
+    try {
+        const res = await fetch(`https://openapi.programming-hero.com/api/news/category/${id}`);
+        const data = await res.json();
+        newsCount(category_name, data.data);
+        sortSection.style.display = 'flex';
+        displayNews(data.data);
+    }
+    catch (e) {
+        console.log(`There is an error in fetching api and the error is ` + e)
+    }
+    spinner(false);
 }
 
 
