@@ -88,6 +88,157 @@
     </header>
     <!-- main section  -->
     <main class="container mx-auto">
+        <section class="mt-10">
+            <h1 class="text-2xl font-bold text-center">Blog 1: JavaScript Related FAQs</h1>
+            <div class="accordion mt-5">
+                <div class="accordion-item bg-white border border-gray-200">
+                    <h2 class="accordion-header mb-0" id="headingOne">
+                        <button class="
+                      accordion-button
+                      relative
+                      flex
+                      items-center
+                      w-full
+                      py-4
+                      px-5
+                      text-base text-gray-800 text-left
+                      bg-white
+                      border-0
+                      rounded-none
+                      transition
+                      focus:outline-none
+                    " type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
+                            aria-controls="collapseOne">
+                            What is the difference among var, let and const?
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body py-4 px-5">
+                            <ul class="list-disc px-8">
+                                <li>
+                                    <strong>var keyword in JavaScript:</strong> The var is the oldest keyword to declare
+                                    a variable in
+                                    JavaScript. <br>
+
+                                    <strong>Scope:</strong> Global scoped or function scoped. The scope of the var
+                                    keyword is the global
+                                    or function scope. It means variables defined outside the function can be accessed
+                                    globally, and variables defined inside a particular function can be accessed within
+                                    the function.
+                                </li>
+                                <li>
+                                    <strong>let keyword in JavaScript:</strong> The let keyword is an improved version
+                                    of the var keyword. <br>
+
+                                    <strong>Scope:</strong> block scoped, The scope of a let variable is only block
+                                    scoped. It can’t be accessible outside the particular block ({block}).
+                                </li>
+                                <li>
+                                    <strong>const keyword in JavaScript:</strong> The const keyword has all the
+                                    properties that are the same as the let keyword, except the user cannot update it.
+                                    <br>
+
+                                    <strong>Scope:</strong> block scoped, When users declare a const variable, they need
+                                    to initialize it, otherwise, it returns an error. The user cannot update the const
+                                    variable once it is declared.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item bg-white border border-gray-200">
+                    <h2 class="accordion-header mb-0" id="headingTwo">
+                        <button class="
+                      accordion-button
+                      collapsed
+                      relative
+                      flex
+                      items-center
+                      w-full
+                      py-4
+                      px-5
+                      text-base text-gray-800 text-left
+                      bg-white
+                      border-0
+                      rounded-none
+                      transition
+                      focus:outline-none
+                    " type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
+                            aria-controls="collapseTwo">
+                            What is the difference between Arrow function and Regular function?
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body py-4 px-5">
+                            <ul class="list-disc px-8">
+                                <li>
+                                    <strong>Syntax of regular functions:-</strong> let x = function
+                                    function_name(parameters){ <br>
+                                    // body of the function <br>
+                                    }; <br>
+                                    <strong>Syntax of arrow functions:-</strong> let x = (parameters) => { <br>
+                                    // body of the function <br>
+                                    };
+                                </li>
+                                <li>
+                                    Unlike regular functions, arrow functions do not have their own this.
+                                </li>
+                                <li>
+                                    Arguments objects are not available in arrow functions, but are available in regular
+                                    functions.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item bg-white border border-gray-200">
+                    <h2 class="accordion-header mb-0" id="headingThree">
+                        <button class="
+                      accordion-button
+                      collapsed
+                      relative
+                      flex
+                      items-center
+                      w-full
+                      py-4
+                      px-5
+                      text-base text-gray-800 text-left
+                      bg-white
+                      border-0
+                      rounded-none
+                      transition
+                      focus:outline-none
+                    " type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false"
+                            aria-controls="collapseThree">
+                            Why should we use Template string?
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body py-4 px-5">
+                            <p class="px-8">
+                                Template literals are enclosed by backtick (`) characters instead of double or single
+                                quotes. <br> <br>
+
+                                Along with having normal strings, template literals can also contain other parts called
+                                placeholders, which are embedded expressions delimited by a dollar sign and curly
+                                braces: ${expression}. The strings and placeholders get passed to a function — either a
+                                default function, or a function you supply. The default function (when you don't supply
+                                your own) just performs string interpolation to do substitution of the placeholders and
+                                then concatenate the parts into a single string. <br> <br>
+
+                                To supply a function of your own, precede the template literal with a function name; the
+                                result is called a tagged template. In that case, the template literal is passed to your
+                                tag function, where you can then perform whatever operations you want on the different
+                                parts of the template literal.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
     </main>
     <!-- footer section  -->
